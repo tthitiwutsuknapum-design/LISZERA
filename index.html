@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liszera</title>
+    <!-- ฟอนต์ Mitr จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Mitr', sans-serif;
+        }
+
+        body {
+            /* พื้นหลังลายตารางสีฟ้าเข้ม/เขียวอมฟ้า ตามแบบ */
+            background-color: #7de3dc;
+            background-image:
+                linear-gradient(to right, #35b3ab 1.5px, transparent 1.5px),
+                linear-gradient(to bottom, #35b3ab 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* Header / ด้านบน */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        /* ช่องค้นหาด้านซ้าย */
+        .search-container {
+            background-color: #086363;
+            padding: 8px 12px 8px 8px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            width: 55%;
+            max-width: 420px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            background-color: #c2ffff;
+            border: 2.5px solid #000;
+            border-radius: 30px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 4px 15px;
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            color: #111;
+        }
+
+        /* โลโก้ Liszera ด้านขวา */
+        .logo-box {
+            background-color: #ffdaec;
+            border: 3px solid #000;
+            border-radius: 18px;
+            padding: 4px 24px;
+            font-size: 34px;
+            font-weight: 700;
+            color: #ff4071;
+            text-shadow: 1.5px 1.5px #000;
+            box-shadow: 3px 3px 0px #000;
+        }
+
+        /* ปุ่ม Admin สำหรับแอดมินอัปโหลด */
+        .admin-toggle-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ff3b5c;
+            color: white;
+            border: 2.5px solid #000;
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 2px 2px 0px #000;
+            text-decoration: none;
+            z-index: 99;
+        }
+
+        /* การจัดวางการ์ดเป็น Grid 3 คอลัมน์ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* สไตล์ของการ์ด */
+        .card {
+            background-color: #086363;
+            border: 3px solid #000;
+            border-radius: 22px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            background-color: #a8ffff;
+            border: 2.5px solid #000;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #ffffff;
+            text-align: center;
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        .download-btn {
+            background-color: #ffffff;
+            border: 2.5px solid #000;
+            border-radius: 25px;
+            padding: 6px 22px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 2px 2px 0px #000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.1s;
+        }
+
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 500;
+            color: #086363;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ลิงก์ไปหน้า Google Form ของแอดมิน (เปลี่ยน URL ตรงนี้) -->
+    <a href="https://forms.gle/NwTdH8ZqhnB2fMD7A" target="_blank" class="admin-toggle-btn">🔒 Admin Upload</a>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="search-container">
+                <div class="search-box">
+                    <span style="margin-right:8px; font-size: 18px;">🔍</span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาชื่อไฟล์..."
+                        oninput="filterCards()">
+                </div>
+            </div>
+            <div class="logo-box">Liszera</div>
+        </div>
+
+        <!-- รายการการ์ด -->
+        <div class="card-grid" id="cardContainer"></div>
+    </div>
+
+    <script>
+        // ใส่ Sheet ID ของคุณตรงนี้
+        const SHEET_ID = '16any5xGg1Kq1dqINWD251kWIH-aVZjgUW7tHpkLPDt4';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+        let allCards = [];
+
+        // ดึงข้อมูลจาก Google Sheet
+        async function fetchCardsFromGoogleSheet() {
+            try {
+                const res = await fetch(SHEET_URL);
+                const text = await res.text();
+
+                // ตัดข้อความส่วนเกินจาก Google API ให้กลายเป็น JSON
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+
+                allCards = rows.map(row => {
+                    return {
+                        title: row.c[1] ? row.c[1].v : 'ไม่มีชื่อ',
+                        image: row.c[2] ? row.c[2].v : '',
+                        downloadUrl: row.c[4] ? row.c[4].v : '#' // ลิงก์ดาวน์โหลดจากคอลัมน์ E
+                    };
+                });
+
+                renderCards(allCards);
+            } catch (error) {
+                console.error("เกิดข้อผิดพลาดในการดึงข้อมูล:", error);
+            }
+        }
+
+        // แสดงผลการ์ดลงหน้าเว็บ
+        function renderCards(cards) {
+            const container = document.getElementById('cardContainer');
+            container.innerHTML = '';
+
+            if (cards.length === 0) {
+                container.innerHTML = '<div class="no-results">ไม่พบรายการที่ค้นหา</div>';
+                return;
+            }
+
+            cards.forEach(c => {
+                const cardHtml = `
+                    <div class="card">
+                        <div class="card-image">
+                            ${c.image ? `<img src="${c.image}" style="width:100%; height:100%; object-fit:cover;">` : ''}
+                        </div>
+                        <div class="card-title">${c.title}</div>
+                        <a href="${c.downloadUrl}" target="_blank" class="download-btn">
+                            <span style="font-size: 16px;">↓</span> Download
+                        </a>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        // ระบบค้นหา Real-time
+        function filterCards() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allCards.filter(c => c.title.toLowerCase().includes(query));
+            renderCards(filtered);
+        }
+
+        // เรียกใช้งานเมื่อเปิดหน้าเว็บ
+        fetchCardsFromGoogleSheet();
+    </script>
+</body>
+
+</html>
